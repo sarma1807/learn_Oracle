@@ -107,12 +107,20 @@ if ${VERIFY_SSHKEYS}; then
   for USER_NAME in ${VALID_USERS_LIST}; do
     echo "${DASHED_LINE}"
     echo "for '${USER_NAME}' user : "
-    for SERVERNAME in ${INPUT_SERVERS}; do
-      echo "verifying password-less ssh with '${SERVERNAME}' server ..."
-      # su - ${USER_NAME} -c "ssh ${SERVERNAME} 'echo `date` from `hostname` as `whoami` user.'"
-      # su - ${USER_NAME} -c "ssh -o BatchMode=yes -o ConnectTimeout=5 ${SERVERNAME} 'cat /etc/hostname'"
-      su - ${USER_NAME} -c "ssh -o BatchMode=yes -o ConnectTimeout=5 ${SERVERNAME} 'vd=$(date) ; vh=$(hostname) ; vu=$(whoami) ; echo ${vd} from ${vh} as ${vu} user.'"
-    done
+    # get user home folder location
+    USER_HOME=$(cat /etc/passwd | egrep "${USER_NAME}:" | cut -f6 -d":" | xargs)
+    USER_SSH_DIR="${USER_HOME}/.ssh"
+    if [ -d "${USER_SSH_DIR}" ] && ( [ -f "${USER_SSH_DIR}/id_rsa" ] || [ -f "${USER_SSH_DIR}/id_rsa.pub" ] ); then
+      echo "ssh keys EXIST in ${USER_SSH_DIR}"
+      for SERVERNAME in ${INPUT_SERVERS}; do
+        echo "verifying password-less ssh with '${SERVERNAME}' server ..."
+        su - ${USER_NAME} -c "ssh -o BatchMode=yes -o ConnectTimeout=5 ${SERVERNAME} echo 'ssh connection successful'"
+        if [ $? -ne 0 ]; then echo 'ssh connection failed' ; fi
+      done
+    else
+      echo "could NOT find ssh keys in RSA format."
+      echo "skipping verification of password-less ssh with '${SERVERNAME}' server ..."
+    fi
   done
   echo "${DASHED_LINE}"
   echo "INFO : remember to run $0 with --distribute_sshkeys on all other servers"
