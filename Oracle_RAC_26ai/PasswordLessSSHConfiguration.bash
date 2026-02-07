@@ -119,7 +119,7 @@ if ${VERIFY_SSHKEYS}; then
       done
     else
       echo "could NOT find ssh keys in RSA format."
-      echo "skipping verification of password-less ssh with '${SERVERNAME}' server ..."
+      echo "skipping verification of password-less ssh."
     fi
   done
   echo "${DASHED_LINE}"
