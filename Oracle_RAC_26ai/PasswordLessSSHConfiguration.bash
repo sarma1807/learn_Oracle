@@ -72,6 +72,7 @@ for USER_NAME in ${USERS_LIST}; do
     VALID_USERS_LIST="${VALID_USERS_LIST} ${USER_NAME}"
     echo "INFO : found '${USER_NAME}' user on this system."
   fi
+done
 echo "${DASHED_LINE}"
 
 # count valid users and exit if valid users = zero
