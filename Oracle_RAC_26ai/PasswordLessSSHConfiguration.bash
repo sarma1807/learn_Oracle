@@ -44,6 +44,19 @@ if ${PRINT_HELP}; then
 fi
 
 
+# verify if sshpass is available
+CHECK_SSHPASS=$(sshpass 2>&1 >/dev/null)
+DO_WE_HAVE_SSHPASS=$(echo ${CHECK_SSHPASS} | rev | cut -f1 -d":" | rev | xargs)
+if [[ "${DO_WE_HAVE_SSHPASS}" == "command not found" ]]; then
+  echo ""
+  echo "ERROR : sshpass is not available on this system."
+  echo " INFO : sshpass can be installed by running following command as root user :"
+  echo "dnf install sshpass --assumeyes"
+  echo ""
+  exit 1
+fi
+
+
 # print dashed line
 echo $(seq 1 50 | xargs -I {} printf "%s" "-")
 
