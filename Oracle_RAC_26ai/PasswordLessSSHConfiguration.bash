@@ -46,11 +46,12 @@ fi
 
 # print dashed line
 echo $(seq 1 50 | xargs -I {} printf "%s" "-")
-# grid user
+
+# grid user - start
 echo "working on ssh keys for 'grid' user ..."
 GRID_HOME=$(cat /etc/passwd | egrep grid | cut -f6 -d":" | xargs)
 if [ -z "${GRID_HOME}" ]; then
-  echo "unable to identify/locate 'grid' user."
+  echo "ERROR : unable to identify/locate 'grid' user."
   echo "skipping password-less ssh configuration changes for 'grid' user."
 else
   echo "removing existing ssh keys from 'grid' user ..."
@@ -63,32 +64,63 @@ else
   echo "attempting to exchange ssh keys for 'grid' user with all servers ..."
   IFS=','
   for SERVERNAME in ${INPUT_SERVERS}; do
-    su - grid -c "sshpass -p 'oracle' ssh-copy-id -o StrictHostKeyChecking=no ${SERVERNAME}" > /dev/null 2>&1
+    # su - grid -c "sshpass -p 'oracle' ssh-copy-id -o StrictHostKeyChecking=no ${SERVERNAME}" > /dev/null 2>&1
     su - grid -c "sshpass -p 'oracle' ssh-copy-id -o StrictHostKeyChecking=no ${SERVERNAME}"
   done
+
+  # print dashed line
+  echo $(seq 1 50 | xargs -I {} printf "%s" "-")
+  echo "attempting to verify ssh keys configuration for 'grid' user by logging into all servers ..."
+  IFS=','
+  for SERVERNAME in ${INPUT_SERVERS}; do
+    su - grid -c "ssh ${SERVERNAME} 'echo `date` from `hostname` as `whoami` user.'"
+  done
 fi
+
+-- for grid user
+su - grid -c "ssh-keygen -t rsa -b 4096 -N '' <<<$'\n'"
+
+
+# grid user - end
+
 # print dashed line
 echo $(seq 1 50 | xargs -I {} printf "%s" "-")
 
-
-exit
-
+# oracle user - start
+echo "working on ssh keys for 'oracle' user ..."
 ORACLE_HOME=$(cat /etc/passwd | egrep oracle | cut -f6 -d":" | xargs)
+if [ -z "${ORACLE_HOME}" ]; then
+  echo "ERROR : unable to identify/locate 'oracle' user."
+  echo "skipping password-less ssh configuration changes for 'oracle' user."
+else
+  echo "removing existing ssh keys from 'oracle' user ..."
+  rm -Rf ${ORACLE_HOME}/.ssh/id_rsa     > /dev/null 2>&1
+  rm -Rf ${ORACLE_HOME}/.ssh/id_rsa.pub > /dev/null 2>&1
 
+  echo "generating new ssh keys for 'oracle' user ..."
+  su - oracle -c "ssh-keygen -t rsa -b 4096 -N '' <<<$'\n'" | egrep -v "^Generating public|^Enter file|Created directory|^Your|^The key fingerprint|^SHA256"
+
+  echo "attempting to exchange ssh keys for 'oracle' user with all servers ..."
+  IFS=','
+  for SERVERNAME in ${INPUT_SERVERS}; do
+    # su - oracle -c "sshpass -p 'oracle' ssh-copy-id -o StrictHostKeyChecking=no ${SERVERNAME}" > /dev/null 2>&1
+    su - oracle -c "sshpass -p 'oracle' ssh-copy-id -o StrictHostKeyChecking=no ${SERVERNAME}"
+  done
+
+  # print dashed line
+  echo $(seq 1 50 | xargs -I {} printf "%s" "-")
+  echo "attempting to verify ssh keys configuration for 'oracle' user by logging into all servers ..."
+  IFS=','
+  for SERVERNAME in ${INPUT_SERVERS}; do
+    su - oracle -c "ssh ${SERVERNAME} 'echo `date` from `hostname` as `whoami` user.'"
+  done
+fi
+# oracle user - end
 
 # print dashed line
 echo $(seq 1 50 | xargs -I {} printf "%s" "-")
 
-# print dashed line
-echo $(seq 1 50 | xargs -I {} printf "%s" "-")
-
-# cleanup leading and trailing spaces
-NEW_NETWORK_INTERFACES=$(echo "${NEW_NETWORK_INTERFACES}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-
-# final message
-echo "current network interfaces [ ${NETWORK_INTERFACES} ] will be renamed to [ ${NEW_NETWORK_INTERFACES} ]"
-echo "changes will be applied during next system restart."
-echo "COMPLETED re-configuring network interfaces."
+echo "you should carefully review above output and fix ERRORs."
 
 # print dashed line
 echo $(seq 1 50 | xargs -I {} printf "%s" "-")
