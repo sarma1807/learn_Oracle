@@ -110,7 +110,8 @@ if ${VERIFY_SSHKEYS}; then
     for SERVERNAME in ${INPUT_SERVERS}; do
       echo "verifying password-less ssh with '${SERVERNAME}' server ..."
       # su - ${USER_NAME} -c "ssh ${SERVERNAME} 'echo `date` from `hostname` as `whoami` user.'"
-      su - ${USER_NAME} -c "ssh -o BatchMode=yes -o ConnectTimeout=5 ${SERVERNAME} 'cat /etc/hostname'"
+      # su - ${USER_NAME} -c "ssh -o BatchMode=yes -o ConnectTimeout=5 ${SERVERNAME} 'cat /etc/hostname'"
+      su - ${USER_NAME} -c "ssh -o BatchMode=yes -o ConnectTimeout=5 ${SERVERNAME} 'vd=$(date) ; vh=$(hostname) ; vu=$(whoami) ; echo ${vd} from ${vh} as ${vu} user.'"
     done
   done
   echo "${DASHED_LINE}"
