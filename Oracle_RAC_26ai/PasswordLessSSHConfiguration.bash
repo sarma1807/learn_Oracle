@@ -76,11 +76,6 @@ else
     su - grid -c "ssh ${SERVERNAME} 'echo `date` from `hostname` as `whoami` user.'"
   done
 fi
-
--- for grid user
-su - grid -c "ssh-keygen -t rsa -b 4096 -N '' <<<$'\n'"
-
-
 # grid user - end
 
 # print dashed line
