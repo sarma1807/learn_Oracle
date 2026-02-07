@@ -59,11 +59,34 @@ if [[ "${DO_WE_HAVE_SSHPASS}" == "command not found" ]]; then
   exit 1
 fi
 
+# verify if users exist on system
+VALID_USERS_LIST=""
+echo "${DASHED_LINE}"
+for USER_NAME in ${USERS_LIST}; do
+  # get user home folder location
+  USER_HOME=$(cat /etc/passwd | egrep "${USER_NAME}:" | cut -f6 -d":" | xargs)
+
+  if [ -z "${USER_HOME}" ]; then
+    echo "ERROR : unable to identify/locate '${USER_NAME}' user on this system."
+  else
+    VALID_USERS_LIST="${VALID_USERS_LIST} ${USER_NAME}"
+    echo "INFO : found '${USER_NAME}' user on this system."
+  fi
+echo "${DASHED_LINE}"
+
+# count valid users and exit if valid users = zero
+NO_OF_VALID_USERS=$(echo ${VALID_USERS_LIST} | wc -w | xargs)
+if [[ ${NO_OF_VALID_USERS} -eq 0 ]]; then
+  echo "ERROR : [ ${USERS_LIST} ] users are missing on this system."
+  exit 1
+fi
+
+
 # distribute_sshkeys
 if ${DISTRIBUTE_SSHKEYS}; then
   echo "${DASHED_LINE}"
   echo "distributing ssh keys to all servers ..."
-  for USER_NAME in ${USERS_LIST}; do
+  for USER_NAME in ${VALID_USERS_LIST}; do
     echo "${DASHED_LINE}"
     echo "for '${USER_NAME}' user : "
     for SERVERNAME in ${INPUT_SERVERS}; do
@@ -80,7 +103,7 @@ fi
 if ${VERIFY_SSHKEYS}; then
   echo "${DASHED_LINE}"
   echo "verifying password-less ssh with all servers ..."
-  for USER_NAME in ${USERS_LIST}; do
+  for USER_NAME in ${VALID_USERS_LIST}; do
     echo "${DASHED_LINE}"
     echo "for '${USER_NAME}' user : "
     for SERVERNAME in ${INPUT_SERVERS}; do
