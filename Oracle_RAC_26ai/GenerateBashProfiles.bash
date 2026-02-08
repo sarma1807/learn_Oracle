@@ -109,6 +109,7 @@ for USER_NAME in ${DB_USERS_LIST}; do
     echo "# Oracle DB instance related environment variables"           >> ${USER_BASH_PROFILE}
     echo "export CVUQDISK_GRP=oinstall"                                 >> ${USER_BASH_PROFILE}
     echo ""                                                             >> ${USER_BASH_PROFILE}
+    echo "export ORACLE_UNQNAME=ora26ai"                                >> ${USER_BASH_PROFILE}
     echo "export ORACLE_SID=ora26ai${HOST_NUMBER}"                      >> ${USER_BASH_PROFILE}
     echo "export ORACLE_BASE=/u01/app/oracle"                           >> ${USER_BASH_PROFILE}
     echo "export ORACLE_HOME=/u01/app/oracle/product/26ai/dbHome01"     >> ${USER_BASH_PROFILE}
