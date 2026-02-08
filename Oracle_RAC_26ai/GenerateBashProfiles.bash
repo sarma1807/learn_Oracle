@@ -104,7 +104,7 @@ for USER_NAME in ${DB_USERS_LIST}; do
     echo ""                                                             >> ${USER_BASH_PROFILE}
     echo "# User specific environment and startup programs"             >> ${USER_BASH_PROFILE}
     echo "# shell prompt"                                               >> ${USER_BASH_PROFILE}
-    echo "export PS1=\"[\u@\h \W]\$ \""                                  >> ${USER_BASH_PROFILE}
+    echo "export PS1=\"[\u@\h \W]\$ \""                                 >> ${USER_BASH_PROFILE}
     echo ""                                                             >> ${USER_BASH_PROFILE}
     echo "# Oracle DB instance related environment variables"           >> ${USER_BASH_PROFILE}
     echo "export CVUQDISK_GRP=oinstall"                                 >> ${USER_BASH_PROFILE}
