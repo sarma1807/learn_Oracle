@@ -1,0 +1,101 @@
+################################################################
+# custom Oracle Grid Infrastructure 26ai install response file #
+#                                                              #
+# Author  : Sarma Pydipally                                    #
+# Created : 12-FEB-2026                                        #
+################################################################
+
+# do not change the following system generated value
+oracle.install.responseFileVersion=/oracle/install/rspfmt_crsinstall_response_schema_v23.0.0
+
+################################################################
+
+# GRID BASE
+ORACLE_BASE=/u01/app/grid
+INVENTORY_LOCATION=/u01/app/oraInventory
+
+# CRS_CONFIG = configure Grid Infrastructure for RAC
+installOption=CRS_CONFIG
+
+# RAC = Oracle RAC | GENERAL_PURPOSE = cluster for generic apps
+clusterUsage=RAC
+
+# os groups
+OSDBA=asmdba
+OSASM=asmadmin
+
+################################################################
+
+clusterName=Astro-cluster
+
+# scan details
+scanType=LOCAL_SCAN
+scanName=Astro-scan
+scanPort=1521
+
+# list of RAC nodes : format = <hostname-public>:<hostname-vip>,<hostname-public>:<hostname-vip>[, ...]
+clusterNodes=AstroBot1:AstroBot1-vip,AstroBot2:AstroBot2-vip
+
+# network InterfaceType :
+# 1 = PUBLIC
+# 2 = PRIVATE
+# 3 = DO NOT USE
+# 4 = ASM
+# 5 = ASM & PRIVATE
+
+# network interfaces : format = <net-interface-name>:<ip-subnet>:<net-interface-type>[, ...]
+networkInterfaceList=eth0:192.168.1.0:1,eth1:10.0.3.0:3,eth2:192.168.2.0:5
+
+################################################################
+
+# ASM settings
+
+# storage for OCR and Voting files
+storageOption=FLEX_ASM_STORAGE
+
+# passwords
+sysasmPassword=oracle
+asmsnmpPassword=oracle
+
+# asm disk group for OCR and Voting files
+diskGroupName=OCR
+
+# redundancy level for ASM disk group : NORMAL | HIGH | EXTERNAL | FLEX | EXTENDED
+redundancy=EXTERNAL
+
+# allocation unit size in MB for ASM disk group : 1 | 2 | 4 | 8 | 16 | 32 | 64
+auSize=4
+
+# ASM disks
+diskList=/dev/sdb1
+
+# ASM disks and their failure groups
+disksWithFailureGroupNames=/dev/sdb1,
+
+# ASM disk discovery string
+diskString=/dev/sd*
+
+################################################################
+
+configureAsExtendedCluster=false
+configureGNS=false
+configureDHCPAssignedVIPs=false
+useIPMI=false
+
+# used during upgrade
+ignoreDownNodes=false
+
+# create separate ASM disk group to store clusterware data and its backup
+configureBackupDG=false
+
+# how do you want to manage Grid Infrastructure (with CLOUD_CONTROL or NONE)
+managementOption=NONE
+
+# root script execution mode : true = automatically | false = manually
+executeRootScript=false
+
+# automatic self correction : true | false
+enableAutoFixup=false
+
+################################################################
+

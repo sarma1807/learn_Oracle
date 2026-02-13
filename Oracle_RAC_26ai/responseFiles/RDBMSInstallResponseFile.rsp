@@ -1,0 +1,42 @@
+################################################################
+# custom Oracle AI Database 26ai install response file         #
+#                                                              #
+# Author  : Sarma Pydipally                                    #
+# Created : 12-FEB-2026                                        #
+################################################################
+
+# do not change the following system generated value
+oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v23.0.0
+
+################################################################
+
+# installation option : INSTALL_DB_SWONLY | INSTALL_DB_AND_CONFIG
+installOption=INSTALL_DB_SWONLY
+
+# os group for inventory directory
+UNIX_GROUP_NAME=oinstall
+
+INVENTORY_LOCATION=/u01/app/oraInventory
+
+# ORACLE_BASE & ORACLE_HOME
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=/u01/app/oracle/product/26ai/dbHome01
+
+# installation edition : EE = Enterprise Edition
+installEdition=EE
+
+# os groups
+OSDBA=dba
+OSBACKUPDBA=backupdba
+OSDGDBA=dgdba
+OSKMDBA=kmdba
+OSRACDBA=racdba
+
+# root script execution mode : true = automatically | false = manually
+executeRootScript=false
+
+# list of RAC nodes : format = <hostname-public>,<hostname-public>[, ...]
+clusterNodes=AstroBot1,AstroBot2
+
+################################################################
+

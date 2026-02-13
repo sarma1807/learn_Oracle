@@ -1,0 +1,60 @@
+################################################################
+# custom Oracle AI Database 26ai install response file         #
+#                                                              #
+# Author  : Sarma Pydipally                                    #
+# Created : 12-FEB-2026                                        #
+################################################################
+
+# do not change the following system generated value
+responseFileVersion=/oracle/assistants/rspfmt_dbca_response_schema_v23.0.0
+
+################################################################
+
+# global database name
+gdbName=ora26ai
+sid=ora26ai
+
+# databaseConfigType = SI - Single Instance (default) | RAC | RACONENODE
+databaseConfigType=RAC
+
+# cdb & pdbs
+createAsContainerDatabase=TRUE
+numberOfPDBs=1
+pdbName=PDB001
+useLocalUndoForPDBs=TRUE
+
+# passwords
+sysPassword=oracle
+systemPassword=oracle
+pdbAdminPassword=oracle
+asmsnmpPassword=oracle
+
+# list of RAC nodes : format = <hostname-public>,<hostname-public>[, ...]
+nodelist=AstroBot1,AstroBot2
+
+# template for db creation
+templateName=/u01/app/oracle/product/26ai/dbHome01/assistants/dbca/templates/General_Purpose.dbc
+
+# storage
+storageType=ASM
+diskGroupName=+DATA
+recoveryGroupName=+FRA
+
+# db character set
+characterSet=AL32UTF8
+nationalCharacterSet=AL16UTF16
+
+# create sample schemas : TRUE | FALSE
+sampleSchema=FALSE
+
+# databaseType : MULTIPURPOSE |DATA_WAREHOUSING | OLTP
+databaseType=MULTIPURPOSE
+
+# automaticMemoryManagement : TRUE | FALSE
+# create db with AMM=FALSE - turn it ON later
+automaticMemoryManagement=FALSE
+
+totalMemory=4g
+
+################################################################
+
