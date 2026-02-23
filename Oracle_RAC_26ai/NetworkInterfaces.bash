@@ -36,9 +36,9 @@ for input_arg in "$@"; do
       echo ""
       echo "This script can rename network interfaces to standard names (example : rename enp0s? to eth?)"
       echo ""
-      echo "Usage : $0    # run program in REPORT ONLY mode - no changes will be performed on the system"
+      echo "Usage : $0    # run this script in REPORT ONLY mode - no changes will be performed on the system"
       echo ""
-      echo "Usage : $0 --make_changes    # program will perform changes on the system"
+      echo "Usage : $0 --make_changes    # this script will perform changes on the system"
       echo ""
       exit 1
       ;;

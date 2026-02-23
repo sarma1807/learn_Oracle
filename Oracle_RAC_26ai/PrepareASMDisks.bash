@@ -22,9 +22,9 @@ for input_arg in "$@"; do
       echo "This script prepares disks for Oracle ASM usage"
       echo "*** WARNING : THIS SCRIPT CAN DESTROY CONTENTS/PARTITIONS OF THE DISKS ***"
       echo ""
-      echo "Usage : $0    # run program in REPORT ONLY mode - no changes will be performed on the system"
+      echo "Usage : $0    # run this script in REPORT ONLY mode - no changes will be performed on the system"
       echo ""
-      echo "Usage : $0 --make_changes    # program will perform changes on the system"
+      echo "Usage : $0 --make_changes    # this script will perform changes on the system"
       echo ""
       exit 1
       ;;

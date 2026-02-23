@@ -24,7 +24,7 @@ for input_arg in "$@"; do
       echo ""
       echo "This script will remove and re-create a new version of ~/.bash_profile file with custom configuration."
       echo ""
-      echo "Usage : $0 --make_changes    # program will perform changes on the system"
+      echo "Usage : $0 --make_changes    # this script will perform changes on the system"
       echo ""
       exit 1
       ;;

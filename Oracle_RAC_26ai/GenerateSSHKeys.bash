@@ -49,8 +49,8 @@ if ${VERIFY_ONLY}; then
 
   # display program help
   echo ""
-  echo "This program can re-generate new ssh keys for [ ${USERS_LIST} ] users."
-  echo "Usage : $0 --generate_sshkeys    # program will REMOVE existing ssh keys and will generate new ssh keys"
+  echo "This script can re-generate new ssh keys for [ ${USERS_LIST} ] users."
+  echo "Usage : $0 --generate_sshkeys    # this script will REMOVE existing ssh keys and will generate new ssh keys"
   echo ""
 
   echo "${DASHED_LINE}"
