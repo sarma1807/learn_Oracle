@@ -47,7 +47,7 @@ nationalCharacterSet=AL16UTF16
 # create sample schemas : TRUE | FALSE
 sampleSchema=FALSE
 
-# databaseType : MULTIPURPOSE |DATA_WAREHOUSING | OLTP
+# databaseType : MULTIPURPOSE | DATA_WAREHOUSING | OLTP
 databaseType=MULTIPURPOSE
 
 # automaticMemoryManagement : TRUE | FALSE
