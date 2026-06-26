@@ -32,7 +32,7 @@ for input_arg in "$@"; do
     --full_host_name=*) INPUT_HOST_NAME="${input_arg#*=}" ;;
     --ignore_private_interface) IGNORE_PRIVATE_INTERFACE=true ;;
     *)
-      echo "Please provide full hostname for this host and make sure this entry has beed added in /etc/hosts file."
+      echo "Please provide full hostname for this host and make sure this entry has been added in /etc/hosts file."
       echo "Usage : $0 --full_host_name=<hostname> [ --ignore_private_interface ]"
       exit 1
       ;;
@@ -40,7 +40,7 @@ for input_arg in "$@"; do
 done
 
 if [ -z "${INPUT_HOST_NAME}" ]; then
-      echo "Please provide full hostname for this host and make sure this entry has beed added in /etc/hosts file."
+      echo "Please provide full hostname for this host and make sure this entry has been added in /etc/hosts file."
   echo "Usage : $0 --full_host_name=<hostname> [ --ignore_private_interface ]"
   exit 1
 fi
